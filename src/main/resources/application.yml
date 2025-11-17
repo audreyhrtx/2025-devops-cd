@@ -2,11 +2,14 @@ spring:
   application:
     name: tp-cd-2024
   datasource:
+    # Référence à la nouvelle URL SANS identifiants
     url: ${DATABASE_JDBC_URL}
+    # Ajout des identifiants séparés
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
   jpa:
     hibernate:
       ddl-auto: create
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
-
