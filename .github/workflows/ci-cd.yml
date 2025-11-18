@@ -38,12 +38,6 @@ jobs:
       - name: Build Docker Image (Check only)
         run: docker build -t wellannn/tp-check:latest .
 
-      # --- 3. Check Documentation Build (Vérification de la documentation) ---
-      # Cette étape dépend de la technologie de documentation que vous utilisez.
-      # Si c'est simple (ex: MkDocs, Jekyll), cela peut ressembler à ceci :
-      - name: Check Documentation Build
-        run: echo "Documentation build check passed."
-
   # ---------------------------------------------------------
   # CD JOB: Déploiement (S'exécute UNIQUEMENT sur 'main' après succès de la CI)
   # ---------------------------------------------------------
@@ -83,10 +77,11 @@ jobs:
         run: npm install -g netlify-cli
 
       - name: Deploy to Netlify
-        run: netlify deploy --prod --site ${{ secrets.NETLIFY_SITE_ID }}
+        run: netlify deploy --prod --dir=. --site ${{ secrets.NETLIFY_SITE_ID }}
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
 
+      # --- Render.com Deployment
       - name: Trigger Render Deploy (Web Service Update)
         run: |
           curl -X POST "https://api.render.com/v1/services/${{ secrets.RENDER_SERVICE_ID }}/deploys" \
