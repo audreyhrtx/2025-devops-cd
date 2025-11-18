@@ -2,11 +2,15 @@ spring:
   application:
     name: tp-cd-2024
   datasource:
-    # Référence à la nouvelle URL SANS identifiants
-    url: ${DATABASE_JDBC_URL}
-    # Ajout des identifiants séparés
-    username: ${SPRING_DATASOURCE_USERNAME}
-    password: ${SPRING_DATASOURCE_PASSWORD}
+    # Référence l'hôte et le port
+    url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}?sslmode=${DB_SSLMODE}&channel_binding=${DB_CHANNEL_BINDING}
+
+    # Référence l'utilisateur et le mot de passe
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+
+    # Configuration du driver
+    driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
       ddl-auto: create
