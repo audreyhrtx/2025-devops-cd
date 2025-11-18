@@ -88,9 +88,7 @@ jobs:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
 
       - name: Trigger Render Deploy (Web Service Update)
-        uses: johnny/render-action@v1.0.0
-        env:
-          RENDER_TOKEN: ${{ secrets.RENDER_TOKEN }} # Vous devez créer un PAT Render
-        with:
-          service-id: ${{ secrets.RENDER_SERVICE_ID }}
-          # Render va récupérer la dernière image que vous venez de pousser
+        run: |
+          curl -X POST "https://api.render.com/v1/services/${{ secrets.RENDER_SERVICE_ID }}/deploys" \
+            -H "Authorization: Bearer ${{ secrets.RENDER_TOKEN }}" \
+            -H "Content-Type: application/json"
